@@ -3,7 +3,6 @@ import copy
 import decimal
 import functools
 import itertools
-import pprint
 import re
 import warnings
 # import types
@@ -237,7 +236,7 @@ class Invalid(Exception):
     def __str__(self):
         """ Return a pretty-formatted string representation of the
         result of an execution of this exception's ``asdict`` method"""
-        return pprint.pformat(self.asdict())
+        return str(self.asdict())
 
 
 class UnsupportedFields(Invalid):
