@@ -12,10 +12,23 @@ import warnings
 
 from iso8601 import iso8601
 
-from .compat import text_, text_type, string_types, xrange, is_nonstr_iter
+_ = str
 
 
-_ = translationstring.TranslationStringFactory('colander')
+# This section comes from the colander.compat module
+def is_nonstr_iter(v):
+    if isinstance(v, str):
+        return False
+    return hasattr(v, '__iter__')
+
+
+def text_(s, encoding='latin-1', errors='strict'):
+    """ If ``s`` is an instance of ``bytes``, return ``s.decode(encoding,
+    errors)``, otherwise return ``s``"""
+    if isinstance(s, bytes):
+        return s.decode(encoding, errors)
+    return s  # pragma: no cover
+# end colander.compat
 
 
 class _required(object):
@@ -331,7 +344,7 @@ class Function(object):
                     self.msg, mapping={'val': value}
                 ),
             )
-        if isinstance(result, string_types):
+        if isinstance(result, (str,)):
             raise Invalid(
                 node,
                 translationstring.TranslationString(
@@ -363,7 +376,7 @@ class Regex(object):
     """
 
     def __init__(self, regex, msg=None, flags=0):
-        if isinstance(regex, string_types):
+        if isinstance(regex, (str,)):
             self.match_object = re.compile(regex, flags)
         else:
             self.match_object = regex
@@ -1128,7 +1141,7 @@ class Sequence(Positional, SchemaType):
         if (
             hasattr(value, '__iter__')
             and not hasattr(value, 'get')
-            and not isinstance(value, string_types)
+            and not isinstance(value, (str,))
         ):
             return list(value)
         if accept_scalar:
@@ -1264,7 +1277,7 @@ class Sequence(Positional, SchemaType):
         mapstruct = _unflatten_mapping(
             node, paths, fstruct, get_child, rewrite_subpath
         )
-        return [mapstruct[str(index)] for index in xrange(len(mapstruct))]
+        return [mapstruct[str(index)] for index in range(len(mapstruct))]
 
     def set_value(self, node, appstruct, path, value):
         if '.' in path:
@@ -1366,14 +1379,14 @@ class String(SchemaType):
             return null
 
         try:
-            if isinstance(appstruct, (text_type, bytes)):
+            if isinstance(appstruct, (str, bytes)):
                 encoding = self.encoding
                 if encoding:
                     result = text_(appstruct, encoding).encode(encoding)
                 else:
-                    result = text_type(appstruct)
+                    result = str(appstruct)
             else:
-                result = text_type(appstruct)
+                result = str(appstruct)
                 if self.encoding:
                     result = result.encode(self.encoding)
             return result
@@ -1388,18 +1401,18 @@ class String(SchemaType):
 
     def deserialize(self, node, cstruct):
         if cstruct == '' and self.allow_empty:
-            return text_type('')
+            return str('')
 
         if not cstruct:
             return null
 
         try:
             result = cstruct
-            if isinstance(result, (text_type, bytes)):
+            if isinstance(result, (str, bytes)):
                 if self.encoding:
                     result = text_(cstruct, self.encoding)
                 else:
-                    result = text_type(cstruct)
+                    result = str(cstruct)
             else:
                 raise Invalid(node)
         except Exception as e:
@@ -1774,7 +1787,7 @@ class GlobalObject(SchemaType):
         if not cstruct:
             return null
 
-        if not isinstance(cstruct, string_types):
+        if not isinstance(cstruct, (str,)):
             raise Invalid(
                 node, _('"${val}" is not a string', mapping={'val': cstruct})
             )
