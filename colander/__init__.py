@@ -237,7 +237,7 @@ class UnsupportedFields(Invalid):
     """
 
     def __init__(self, node, fields, msg=None):
-        super(UnsupportedFields, self).__init__(node, msg)
+        super().__init__(node, msg)
         self.fields = fields
 
 
@@ -269,7 +269,7 @@ class Any(All):
 
     def __call__(self, node, value):
         try:
-            return super(Any, self).__call__(node, value)
+            return super().__call__(node, value)
         except Invalid as e:
             if len(e.msg) < len(self.validators):
                 # At least one validator did not fail:
@@ -400,7 +400,7 @@ class Email(Regex):
         email_regex = text_(EMAIL_RE)
         if msg is None:
             msg = _("Invalid email address")
-        super(Email, self).__init__(email_regex, msg=msg)
+        super().__init__(email_regex, msg=msg)
 
 
 class Range(object):
@@ -1472,7 +1472,7 @@ class Integer(Number):
 
             self.num = _strict_int
 
-        super(Integer, self).__init__()
+        super().__init__()
 
 
 Int = Integer
@@ -1550,7 +1550,7 @@ class Money(Decimal):
     """
 
     def __init__(self):
-        super(Money, self).__init__(decimal.Decimal('.01'), decimal.ROUND_UP)
+        super().__init__(decimal.Decimal('.01'), decimal.ROUND_UP)
 
 
 class Boolean(SchemaType):
