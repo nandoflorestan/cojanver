@@ -1806,6 +1806,7 @@ class GlobalObject(SchemaType):
             )
 '''
 
+'''
 class DateTime(SchemaType):
     """ A type representing a Python ``datetime.datetime`` object.
 
@@ -2055,6 +2056,7 @@ class Time(SchemaType):
         raise Invalid(
             node, _(self.err_template, mapping={'val': cstruct, 'err': err})
         )
+'''
 
 
 class Enum(SchemaType):
