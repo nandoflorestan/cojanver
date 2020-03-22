@@ -1,16 +1,13 @@
-# coding=utf-8
 import copy
-import datetime
+# import datetime
 import decimal
 import functools
 import itertools
 import pprint
 import re
-import translationstring
 import warnings
 # import types
 
-from iso8601 import iso8601
 
 _ = str
 
