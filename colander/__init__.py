@@ -1,4 +1,3 @@
-import copy
 # import datetime
 import itertools
 import re
@@ -846,7 +845,8 @@ class Mapping(SchemaType):
                 )
 
         elif self.unknown == 'preserve':
-            result.update(copy.deepcopy(value))
+            raise NotImplementedError("unknown:preserve erased for Transcrypt")
+            # result.update(copy.deepcopy(value))
 
         if error is not None:
             raise error
