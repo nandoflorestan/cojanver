@@ -8,7 +8,7 @@ import pprint
 import re
 import translationstring
 import warnings
-import types
+# import types
 
 from iso8601 import iso8601
 
@@ -1648,7 +1648,7 @@ class Boolean(SchemaType):
 
 Bool = Boolean
 
-
+'''
 class GlobalObject(SchemaType):
     """ A type representing an importable Python object.  This type
     serializes 'global' Python objects (objects which can be imported)
@@ -1791,7 +1791,7 @@ class GlobalObject(SchemaType):
                     mapping={'name': cstruct},
                 ),
             )
-
+'''
 
 class DateTime(SchemaType):
     """ A type representing a Python ``datetime.datetime`` object.
