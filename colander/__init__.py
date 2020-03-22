@@ -1,6 +1,5 @@
 import copy
 # import datetime
-import decimal
 import itertools
 import re
 import warnings
@@ -1538,6 +1537,7 @@ class Float(Number):
     num = float
 
 
+'''
 class Decimal(Number):
     """
     A type representing a decimal floating point.  Deserialization returns an
@@ -1597,6 +1597,7 @@ class Money(Decimal):
 
     def __init__(self):
         super().__init__(decimal.Decimal('.01'), decimal.ROUND_UP)
+'''
 
 
 class Boolean(SchemaType):
