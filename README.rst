@@ -30,6 +30,10 @@ because it depends on the *locale* module which needs ``itertools.chain()``.
 You can easily see what I did by perusing my latest commits in the *transcrypt*
 branch.
 
+By the way, I think `pydantic <https://pydantic-docs.helpmanual.io/>`_ is more
+modern and useful than colander, but getting pydantic to work in the browser
+seems even more difficult.
+
 
 Usage
 =====
