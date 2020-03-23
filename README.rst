@@ -2,7 +2,7 @@
 Cojanver - client/server validation
 ===================================
 
-What is Cojanver?
+What is `Cojanver <https://github.com/nandoflorestan/cojanver>`_?
 =================
 
 Ever dream of a validation library that would work the same in the server as
